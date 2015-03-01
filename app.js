@@ -9,6 +9,9 @@ var app = express();
 
 var xAPI = require('./routes/xAPI');
 
+var mongoose   = require('mongoose');
+mongoose.connect('mongodb://maplelrs:maplelrs@127.0.0.1:27017/maplelrs');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
