@@ -12,6 +12,39 @@ describe('Routing', function () {
 	});
 
 	describe('statements', function () {
+
+		var statementId = "1234";
+		var statement = {
+			id: statementId
+		};
+
+		it('post statement', function (done) {
+			request(url)
+				.post('/xAPI/statements')
+				.send(statement)
+				.expect(200)
+				.end(function (err, res) {
+					if (err) {
+						throw err;
+					}
+					done();
+				});
+		});
+
+		it('put statement', function (done) {
+			request(url)
+				.put('/xAPI/statements')
+				.send("statementId=" + statementId)
+				.send(statement)
+				.expect(204)
+				.end(function (err, res) {
+					if (err) {
+						throw err;
+					}
+					done();
+				});
+		});
+
 		it('get statement', function (done) {
 			request(url)
 				.get('/xAPI/statements')
@@ -22,7 +55,7 @@ describe('Routing', function () {
 					}
 					done();
 				});
-		})
+		});
 	});
 });
 
