@@ -23,9 +23,9 @@ var statementSchema = new Schema({
 		mbox: String,
 		mbox_sha1sum: String,
 		openid: String,
-		account: accountSchema
+		account: [accountSchema]
 	},
-	verb: verbSchema,
+	verb: [verbSchema],
 	timestamp: String
 });
 
