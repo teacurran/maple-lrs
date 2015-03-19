@@ -3,6 +3,7 @@ var assert = require('assert');
 var request = require('supertest');
 var mongoose = require('mongoose');
 var winston = require('winston');
+var querystring = require('querystring');
 
 describe('Routing', function () {
 	var url = 'http://127.0.0.1:3000';
@@ -46,8 +47,14 @@ describe('Routing', function () {
 		});
 
 		it('get statement', function (done) {
+
+			var urlWithQuery = "/xAPI/statements?" + querystring.stringify({
+					statementId: statementId
+				});
+
 			request(url)
-				.get('/xAPI/statements')
+				.get(urlWithQuery)
+
 				.expect(200)
 				.end(function (err, res) {
 					if (err) {

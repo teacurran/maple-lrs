@@ -1,0 +1,12 @@
+Maple LRS
+=========
+
+This is just an experimenal project. I am using it to play around with the Experience API.
+
+To Run:
+
+node bin/www
+
+To Test:
+
+in a separate process, run mocha

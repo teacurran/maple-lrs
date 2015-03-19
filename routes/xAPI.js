@@ -10,9 +10,18 @@ router.get('/', function (req, res, next) {
 
 router.route('/statements')
 
-	// get all the bears (accessed at GET http://localhost:8080/api/bears)
 	.get(function (req, res) {
-		res.send('get');
+
+		var statementId = req.query.statementId;
+
+		if (statementId != null) {
+			models.Statement.findById(statementId, function (err, statement) {
+				if (err) {
+					res.send(err);
+				}
+				res.json(statement);
+			});
+		}
 	})
 
 	.post(function (req, res) {
