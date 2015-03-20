@@ -1,4 +1,5 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var router = express.Router();
 
 var models     = require('../app/models');
@@ -15,7 +16,7 @@ router.route('/statements')
 		var statementId = req.query.statementId;
 
 		if (statementId != null) {
-			models.Statement.findById(statementId, function (err, statement) {
+			models.Statement.findOne({statementId: statementId}, function (err, statement) {
 				if (err) {
 					res.send(err);
 				}
@@ -26,14 +27,18 @@ router.route('/statements')
 
 	.post(function (req, res) {
 
-		var statement = new models.Statement();
-		statement.id = req.body.statementId;
+		var statement = new models.Statement({
+			statementId: req.body.statementId,
+			actor: req.body.actor,
+			verb: req.body.verb
+		});
 
-		statement.save(function (err) {
+		statement.save(function (err, data) {
 			if (err) {
-				res.send(err);
+				return console.error(err);
+			} else {
+				console.log('Saved : ', data);
 			}
-
 		});
 
 		res.sendStatus(200);

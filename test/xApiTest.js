@@ -15,8 +15,21 @@ describe('Routing', function () {
 	describe('statements', function () {
 
 		var statementId = "1234";
-		var statement = {
-			id: statementId
+		var statement =
+		{
+		    "statementId": statementId,
+		    "actor":{
+		        "mbox":"mailto:xapi@adlnet.gov"
+		    },
+		    "verb":{
+		        "id":"http://adlnet.gov/expapi/verbs/created",
+		        "display":{
+		            "en-US":"created"
+		        }
+		    },
+		    "object":{
+		        "id":"http://example.adlnet.gov/xapi/example/activity"
+		    }
 		};
 
 		it('post statement', function (done) {
@@ -54,14 +67,23 @@ describe('Routing', function () {
 
 			request(url)
 				.get(urlWithQuery)
-
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
 				.expect(200)
+				.expect(hasActor)
 				.end(function (err, res) {
 					if (err) {
 						throw err;
 					}
+
+					res.
 					done();
 				});
+
+			function hasActor(res) {
+				console.log(res.body);
+			    if (!('actor' in res.body)) return "missing actor";
+			  }
 		});
 	});
 });

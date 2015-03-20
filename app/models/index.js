@@ -15,7 +15,7 @@ var verbSchema = new Schema({
 });
 
 var statementSchema = new Schema({
-	id: String,
+	statementId: String,
 	actor: {
 		objectType: String,
 		name: String,
