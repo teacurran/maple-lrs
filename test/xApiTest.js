@@ -70,20 +70,33 @@ describe('Routing', function () {
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
 				.expect(200)
+				.expect(statementIdMatches)
 				.expect(hasActor)
+				.expect(hasVerb)
 				.end(function (err, res) {
 					if (err) {
 						throw err;
 					}
-
-					res.
 					done();
 				});
 
+			function statementIdMatches(res) {
+				if (res.body.statementId != statementId) {
+					return "statementId is incorrect";
+				}
+			}
+
 			function hasActor(res) {
-				console.log(res.body);
-			    if (!('actor' in res.body)) return "missing actor";
-			  }
+				if (!('actor' in res.body)) {
+					return "missing actor";
+				}
+			}
+
+			function hasVerb(res) {
+				if (!('verb' in res.body)) {
+					return "missing verb";
+				}
+			}
 		});
 	});
 });
