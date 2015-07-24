@@ -1,12 +1,21 @@
-Maple LRS
-=========
+= Maple LRS
 
 This is just an experimenal project. I am using it to play around with the Experience API.
 
-To Run:
+=== Install
+brew install mongodb
+brew install node
+npm install
+npm install -g mocha
 
+=== Create the database
+mongo
+> use maplelrs
+
+=== Run
+mongod --config /usr/local/etc/mongod.conf
 node bin/www
 
-To Test:
+=== Tests:
 
 in a separate process, run mocha
