@@ -16,7 +16,6 @@ describe('Routing', function () {
 
 		var statementId = "1234";
 		var statement = {
-			"statementId": statementId,
 			"actor": {
 				"mbox": "mailto:xapi@adlnet.gov"
 			},

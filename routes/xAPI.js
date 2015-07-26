@@ -45,7 +45,21 @@ router.route('/statements')
 	})
 
 	.put(function (req, res) {
-		res.send('put');
+		var statement = new models.Statement({
+			statementId: req.body.statementId,
+			actor: req.body.actor,
+			verb: req.body.verb
+		});
+
+		statement.save(function (err, data) {
+			if (err) {
+				return console.error(err);
+			} else {
+				console.log('Saved : ', data);
+			}
+		});
+
+		res.sendStatus(204);
 	})
 
 ;
