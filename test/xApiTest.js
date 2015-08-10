@@ -16,6 +16,7 @@ describe('Routing', function () {
 
 		var statementId = "1234";
 		var statement = {
+			"id": statementId,
 			"actor": {
 				"mbox": "mailto:xapi@adlnet.gov"
 			},
@@ -79,7 +80,8 @@ describe('Routing', function () {
 				});
 
 			function statementIdMatches(res) {
-				if (res.body.statementId != statementId) {
+				console.log(res.body);
+				if (res.body.id != statementId) {
 					return "statementId is incorrect";
 				}
 			}
