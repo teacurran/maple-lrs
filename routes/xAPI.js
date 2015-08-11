@@ -16,15 +16,14 @@ router.route('/statements')
 		var statementId = req.query.statementId;
 
 		if (statementId != null) {
-			models.Statement.findOne.lean().exec({statementId: statementId}, function (err, statement) {
+			models.Statement.findOne().lean().exec({statementId: statementId}, function (err, statement) {
 				if (err) {
 					res.send(err);
 				}
-				statementObj = statement.toObject();
-				statementObj.id = statement.statementId;
-				delete statementObj.statementId;
+				statement.id = statement.statementId;
+				delete statement.statementId;
 
-				res.json(statementObj);
+				res.json(statement);
 			});
 		}
 	})

@@ -16,17 +16,34 @@ var verbSchema = new Schema({
 
 var statementSchema = new Schema({
 	statementId: String,
-	actor: {
+	actor: [{
 		objectType: String,
 		name: String,
-		member: [statementSchema],
+		member: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Statement'
+		}],
 		mbox: String,
 		mbox_sha1sum: String,
 		openid: String,
 		account: [accountSchema]
-	},
+	}],
 	verb: [verbSchema],
 	timestamp: String
+});
+
+
+var blogSchema = new Schema({
+  title:  String,
+  author: String,
+  body:   String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs:  Number
+  }
 });
 
 
