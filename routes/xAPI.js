@@ -31,7 +31,7 @@ router.route('/statements')
 	.post(function (req, res) {
 
 		var statement = new models.Statement({
-			statementId: req.body.statementId,
+			statementId: req.body.id,
 			actor: req.body.actor,
 			verb: req.body.verb
 		});
@@ -49,7 +49,7 @@ router.route('/statements')
 
 	.put(function (req, res) {
 		var statement = new models.Statement({
-			statementId: req.body.statementId,
+			statementId: req.body.id,
 			actor: req.body.actor,
 			verb: req.body.verb
 		});

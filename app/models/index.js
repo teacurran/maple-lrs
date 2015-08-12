@@ -32,21 +32,6 @@ var statementSchema = new Schema({
 	timestamp: String
 });
 
-
-var blogSchema = new Schema({
-  title:  String,
-  author: String,
-  body:   String,
-  comments: [{ body: String, date: Date }],
-  date: { type: Date, default: Date.now },
-  hidden: Boolean,
-  meta: {
-    votes: Number,
-    favs:  Number
-  }
-});
-
-
 exports.Account = mongoose.model('Account', accountSchema);
 exports.Verb = mongoose.model('Verb', verbSchema);
 exports.Statement = mongoose.model('Statement', statementSchema);
