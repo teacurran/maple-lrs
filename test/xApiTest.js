@@ -14,9 +14,11 @@ describe('Routing', function () {
 
 	describe('statements', function () {
 
-		var statementId = "1234";
+		var statement1Id = "1234";
+		var statement2Id = "5678";
+
 		var statement = {
-			"id": statementId,
+			"id": statement1Id,
 			"actor": {
 				"mbox": "mailto:xapi@adlnet.gov"
 			},
@@ -31,10 +33,41 @@ describe('Routing', function () {
 			}
 		};
 
+		var multipleStatements = [{
+				"id": statement1Id,
+				"actor": {
+					"mbox": "mailto:xapi@adlnet.gov"
+				},
+				"verb": {
+					"id": "http://adlnet.gov/expapi/verbs/created",
+					"display": {
+						"en-US": "created"
+					}
+				},
+				"object": {
+					"id": "http://example.adlnet.gov/xapi/example/activity"
+				}
+			}, {
+				"id": statement2Id,
+				"actor": {
+					"mbox": "mailto:xapi@adlnet.gov"
+				},
+				"verb": {
+					"id": "http://adlnet.gov/expapi/verbs/modified",
+					"display": {
+						"en-US": "modified"
+					}
+				},
+				"object": {
+					"id": "http://example.adlnet.gov/xapi/example/activity2"
+				}
+			}];
+
+
 		it('post statement', function (done) {
 			request(url)
 				.post('/xAPI/statements')
-				.send(statement)
+				.send(multipleStatements)
 				.expect(200)
 				.end(function (err, res) {
 					if (err) {
@@ -47,7 +80,7 @@ describe('Routing', function () {
 		it('put statement', function (done) {
 			request(url)
 				.put('/xAPI/statements')
-				.send("statementId=" + statementId)
+				.send("statementId=" + statement1Id)
 				.send(statement)
 				.expect(204)
 				.end(function (err, res) {
@@ -61,7 +94,7 @@ describe('Routing', function () {
 		it('get statement', function (done) {
 
 			var urlWithQuery = "/xAPI/statements?" + querystring.stringify({
-					statementId: statementId
+					statementId: statement1Id
 				});
 
 			request(url)
@@ -81,7 +114,7 @@ describe('Routing', function () {
 
 			function statementIdMatches(res) {
 				console.log(res.body);
-				if (res.body.id != statementId) {
+				if (res.body.id != statement1Id) {
 					return "statementId is incorrect";
 				}
 			}

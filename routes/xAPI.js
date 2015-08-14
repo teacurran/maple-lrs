@@ -30,19 +30,30 @@ router.route('/statements')
 
 	.post(function (req, res) {
 
-		var statement = new models.Statement({
-			statementId: req.body.id,
-			actor: req.body.actor,
-			verb: req.body.verb
-		});
+		var inStatements;
+		if (Object.prototype.toString.call(req.body) === '[object Array]') {
+			inStatements = req.body;
+		} else if (typeof req.body.id === 'string') {
+			inStatements[0] = req.body;
+		}
 
-		statement.save(function (err, data) {
-			if (err) {
-				return console.error(err);
-			} else {
-				console.log('Saved : ', data);
-			}
-		});
+		for (var i = 0; i < inStatements.length; i++) {
+			var inStatement = inStatements[i];
+
+			var statement = new models.Statement({
+				statementId: inStatement.id,
+				actor: inStatement.actor,
+				verb: inStatement.verb
+			});
+
+			statement.save(function (err, data) {
+				if (err) {
+					return console.error(err);
+				} else {
+					console.log('Saved : ', data);
+				}
+			});
+		}
 
 		res.sendStatus(200);
 	})
