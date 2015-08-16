@@ -5,7 +5,11 @@ var mongoose = require('mongoose');
 var winston = require('winston');
 var querystring = require('querystring');
 
-describe('Routing', function () {
+var app = require('../app.js')();
+
+
+describe('tests', function () {
+
 	var url = 'http://127.0.0.1:3000';
 
 	before(function (done) {

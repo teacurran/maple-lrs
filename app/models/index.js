@@ -6,13 +6,14 @@ var accountSchema = new Schema({
 	name: String
 });
 
-var verbSchema = new Schema({
-	id: String,
-	display: [{
-		language: String,
-		value: String
-	}]
+var activityStateSchema = new Schema({
+	values : []
 });
+
+var activityProfileSchema = new Schema({
+	values : []
+});
+
 
 var statementSchema = new Schema({
 	statementId: String,
@@ -32,6 +33,16 @@ var statementSchema = new Schema({
 	timestamp: String
 });
 
+var verbSchema = new Schema({
+	id: String,
+	display: [{
+		language: String,
+		value: String
+	}]
+});
+
 exports.Account = mongoose.model('Account', accountSchema);
 exports.Verb = mongoose.model('Verb', verbSchema);
+exports.Statement = mongoose.model('ActivityState', activityStateSchema);
+exports.Statement = mongoose.model('ActivityProfile', activityProfileSchema);
 exports.Statement = mongoose.model('Statement', statementSchema);
