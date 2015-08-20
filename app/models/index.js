@@ -14,6 +14,11 @@ var activityProfileSchema = new Schema({
 	values : []
 });
 
+var documentSchema = new Schema({
+	documentId: String,
+	updated: { type : Date, default: Date.now },
+	contents: Buffer
+});
 
 var statementSchema = new Schema({
 	statementId: String,
@@ -42,6 +47,7 @@ var verbSchema = new Schema({
 });
 
 exports.Account = mongoose.model('Account', accountSchema);
+exports.Document = mongoose.model('Document', documentSchema);
 exports.Verb = mongoose.model('Verb', verbSchema);
 exports.Statement = mongoose.model('ActivityState', activityStateSchema);
 exports.Statement = mongoose.model('ActivityProfile', activityProfileSchema);
