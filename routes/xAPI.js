@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 var models     = require('../app/models');
-var xApiUtils  = require('../app/xApiUtils')(this);
+var xApiUtils  = require('../app/xApiUtils');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -55,8 +55,8 @@ router.route('/statements')
 
 					statement.attachments[a] = {
 						usageType: inAttachment.usageType,
-						display: getLanguageMap(inAttachment.display),
-						description: this.getLanguageMap(inAttachment.description),
+						display: xApiUtils.getLanguageMap(inAttachment.display),
+						description: xApiUtils.getLanguageMap(inAttachment.description),
 						contentType: inAttachment.contentType,
 						length: inAttachment.length,
 						sha2: inAttachment.sha2
