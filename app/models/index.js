@@ -20,6 +20,14 @@ var documentSchema = new Schema({
 	contents: Buffer
 });
 
+var verbSchema = new Schema({
+	id: String,
+	display: [{
+		language: String,
+		value: String
+	}]
+});
+
 var statementSchema = new Schema({
 	statementId: String,
 	actor: [{
@@ -35,14 +43,21 @@ var statementSchema = new Schema({
 		account: [accountSchema]
 	}],
 	verb: [verbSchema],
-	timestamp: String
-});
-
-var verbSchema = new Schema({
-	id: String,
-	display: [{
-		language: String,
-		value: String
+	timestamp: String,
+	attachments: [{
+		usageType: String,
+		display: [{
+			language: String,
+			value: String
+		}],
+		description: [{
+			language: String,
+			value: String
+		}],
+		contentType: String,
+		length: Number,
+		sha2: String,
+		fileUrl: String
 	}]
 });
 

@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var winston = require('winston');
 var querystring = require('querystring');
 
-var app = require('../app.js')();
+//var app = require('../app.js')();
 
 
 describe('tests', function () {
