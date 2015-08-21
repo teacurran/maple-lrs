@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 var models     = require('../app/models');
+var xApiUtils  = require('../app/xApiUtils')(this);
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -30,7 +31,7 @@ router.route('/statements')
 
 	.post(function (req, res) {
 
-		var inStatements;
+		var inStatements = [];
 		if (Object.prototype.toString.call(req.body) === '[object Array]') {
 			inStatements = req.body;
 		} else if (typeof req.body.id === 'string') {
@@ -45,6 +46,23 @@ router.route('/statements')
 				actor: inStatement.actor,
 				verb: inStatement.verb
 			});
+
+			var inAttachments = inStatement.attachments;
+			if (inAttachments && Object.prototype.toString.call(inAttachments) === '[object Array]') {
+				statement.attachments = [];
+				for (var a = 0; a < inAttachments.length; a++) {
+					var inAttachment = inAttachments[a];
+
+					statement.attachments[a] = {
+						usageType: inAttachment.usageType,
+						display: getLanguageMap(inAttachment.display),
+						description: this.getLanguageMap(inAttachment.description),
+						contentType: inAttachment.contentType,
+						length: inAttachment.length,
+						sha2: inAttachment.sha2
+					};
+				}
+			}
 
 			statement.save(function (err, data) {
 				if (err) {
