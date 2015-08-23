@@ -2,13 +2,15 @@
 module.exports.getLanguageMap = function(inContent) {
 	var languageMap = [];
 
-	for (var i=0; i < inContent.children.length; i++) {
-		var child = inContent.children[i];
-		languageMap[i] = {
-			language: "test",
-			value: "value"
+	for (var property in inContent) {
+		if (inContent.hasOwnProperty(property)) {
+			languageMap[languageMap.length] = {
+				language: property.name,
+				value: property
+			}
 		}
 	}
+
 	return languageMap;
 };
 
