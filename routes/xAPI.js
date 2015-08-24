@@ -17,12 +17,10 @@ router.route('/statements')
 		var statementId = req.query.statementId;
 
 		if (statementId != null) {
-			models.Statement.findOne().lean().exec({statementId: statementId}, function (err, statement) {
+			models.Statement.findOne().lean().exec({id: statementId}, function (err, statement) {
 				if (err) {
 					res.send(err);
 				}
-				statement.id = statement.statementId;
-				delete statement.statementId;
 
 				res.json(statement);
 			});
@@ -42,7 +40,7 @@ router.route('/statements')
 			var inStatement = inStatements[i];
 
 			var statement = new models.Statement({
-				statementId: inStatement.id,
+				id: inStatement.id,
 				actor: inStatement.actor,
 				verb: inStatement.verb
 			});
@@ -78,7 +76,7 @@ router.route('/statements')
 
 	.put(function (req, res) {
 		var statement = new models.Statement({
-			statementId: req.body.id,
+			id: req.body.id,
 			actor: req.body.actor,
 			verb: req.body.verb
 		});

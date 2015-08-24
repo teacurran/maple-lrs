@@ -20,16 +20,8 @@ var documentSchema = new Schema({
 	contents: Buffer
 });
 
-var verbSchema = new Schema({
-	id: String,
-	display: [{
-		language: String,
-		value: String
-	}]
-});
-
 var statementSchema = new Schema({
-	statementId: String,
+	id: String,
 	actor: [{
 		objectType: String,
 		name: String,
@@ -42,7 +34,13 @@ var statementSchema = new Schema({
 		openid: String,
 		account: [accountSchema]
 	}],
-	verb: [verbSchema],
+	verb: {
+		id: String,
+		display: [{
+			language: String,
+			value: String
+		}]
+	},
 	timestamp: String,
 	attachments: [{
 		usageType: String,
@@ -63,7 +61,6 @@ var statementSchema = new Schema({
 
 exports.Account = mongoose.model('Account', accountSchema);
 exports.Document = mongoose.model('Document', documentSchema);
-exports.Verb = mongoose.model('Verb', verbSchema);
 exports.Statement = mongoose.model('ActivityState', activityStateSchema);
 exports.Statement = mongoose.model('ActivityProfile', activityProfileSchema);
 exports.Statement = mongoose.model('Statement', statementSchema);
