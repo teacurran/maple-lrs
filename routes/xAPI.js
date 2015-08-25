@@ -45,13 +45,14 @@ router.route('/statements')
 				verb: inStatement.verb
 			});
 
+			var attachments = [];
 			var inAttachments = inStatement.attachments;
 			if (inAttachments && Object.prototype.toString.call(inAttachments) === '[object Array]') {
 				statement.attachments = [];
 				for (var a = 0; a < inAttachments.length; a++) {
 					var inAttachment = inAttachments[a];
 
-					statement.attachments[a] = {
+					attachments[a] = {
 						usageType: inAttachment.usageType,
 						display: xApiUtils.getLanguageMap(inAttachment.display),
 						description: xApiUtils.getLanguageMap(inAttachment.description),
@@ -61,6 +62,7 @@ router.route('/statements')
 					};
 				}
 			}
+			statement.attachments = attachments;
 
 			statement.save(function (err, data) {
 				if (err) {

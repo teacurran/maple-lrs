@@ -147,8 +147,7 @@ describe('tests', function () {
 
 		it('put statement', function (done) {
 			request(url)
-				.put('/xAPI/statements')
-				.send("statementId=" + statement1Id)
+				.put('/xAPI/statements?statementId=' + statement1Id)
 				.send(statement)
 				.expect(204)
 				.end(function (err, res) {
@@ -181,13 +180,13 @@ describe('tests', function () {
 				});
 
 			function statementIdMatches(res) {
-				console.log(res.body);
 				if (res.body.id != statement1Id) {
-					return "statementId is incorrect";
+					return "statementId is incorrect: " + res.body.id + " expected:" + statement1Id;
 				}
 			}
 
 			function hasActor(res) {
+				//console.log(res.body);
 				if (!('actor' in res.body)) {
 					return "missing actor";
 				}
